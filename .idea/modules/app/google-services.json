@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "799263105698",
+    "firebase_url": "https://assignment2video.firebaseio.com",
+    "project_id": "assignment2video",
+    "storage_bucket": "assignment2video.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799263105698:android:16e223790eb9f9515fadfb",
+        "android_client_info": {
+          "package_name": "com.example.assignment2_video"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799263105698-m7orau61jhckh3gk2mbeuk2vp95rmgph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.assignment2_video",
+            "certificate_hash": "6e64ad4b3dc856f0eafa8d6f7f9d9a950e956225"
+          }
+        },
+        {
+          "client_id": "799263105698-jlnh1epnrm65uta6alt1fdp84dek8v6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK8Vm6oSz1SRyxbTVd-gM75m5mSn81oCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799263105698-jlnh1epnrm65uta6alt1fdp84dek8v6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
