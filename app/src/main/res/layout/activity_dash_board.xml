@@ -6,36 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".DashBoardActivity"
     android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:textSize="30dp"
+            android:paddingLeft="30dp"
+            android:textStyle="bold" />
     <EditText
-        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_width="310dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:id="@+id/et_curr_pass"
-        android:inputType="textPassword"
         android:hint="Current Password"
+        android:inputType="textPassword"
+        android:id="@+id/et_curr_pass"
         />
     <EditText
-        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_width="310dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:hint="New Password"
+        android:inputType="textPassword"
         android:id="@+id/et_new_pass"
-        android:inputType="textPassword"
-        android:hint="New Password"/>
+        />
     <EditText
-        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_width="310dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:id="@+id/et_confirm_pass"
+        android:hint="Confirm Password"
         android:inputType="textPassword"
-        android:hint="Confirm Password"/>
-    <Button
+        android:id="@+id/et_confirm_pass"
+        />
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_change_pass"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="20dp"
+        android:clickable="true"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:padding="16dp"
+        android:text="login"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        app:cardBackgroundColor="#e20147"
+        android:textAllCaps="false">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"
+            /></androidx.cardview.widget.CardView>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimary"
-        android:text="Change Password" />
-    <Button
-        android:id="@+id/btn_log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout" />
+        android:text="Logout"
+        android:paddingTop="60dp"
+        android:textColor="#008000"
+        android:layout_gravity="center"
+        android:id="@+id/btn_log_out"/>
 </LinearLayout>
