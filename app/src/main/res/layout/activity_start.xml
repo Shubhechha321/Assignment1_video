@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wallpaper"
+    android:layout_centerHorizontal="true"
+    tools:context="com.example.assignment1_video.StartActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/getStarted"
+        android:layout_marginBottom="30dp"
+        android:text="Welcome to the family"
+        android:textColor="#ffffff"
+        android:textSize="40dp" />
+
+        <TextView
+            android:id="@+id/getStarted"
+           android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Started"
+            android:textSize="35sp"
+            android:textColor="#fff"
+            android:clickable="true" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getStarted"
+        app:cardCornerRadius="25dp"
+        android:background="#ffffff"
+        android:id="@+id/googleSignIn"
+        android:visibility="gone">
+
+        <com.google.android.gms.common.SignInButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+
+            />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Email"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/googleSignIn"
+        app:cardCornerRadius="25dp"
+        android:background="#ffffff"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:text="Sign up with Email"
+                android:textSize="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColor="#000000"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Emai"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/Email"
+        app:cardCornerRadius="25dp"
+        android:background="#ffffff"
+        android:visibility="gone">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <TextView
+            android:text="Authenticate using Phone"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="#000000"
+            />
+    </LinearLayout></androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/accountExists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:text="Already have an account?"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>
