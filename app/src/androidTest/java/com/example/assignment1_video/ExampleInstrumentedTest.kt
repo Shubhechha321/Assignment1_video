@@ -1,4 +1,4 @@
-package com.example.assignment2_video
+package com.example.assignment1_video
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

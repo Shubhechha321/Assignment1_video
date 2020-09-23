@@ -1,4 +1,4 @@
-package com.example.assignment2_video
+package com.example.assignment1_video
 
 import org.junit.Test
 

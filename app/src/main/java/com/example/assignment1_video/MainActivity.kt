@@ -16,72 +16,66 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import kotlinx.android.synthetic.main.activity_dash_board.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_phone_verification.*
-import java.util.concurrent.TimeUnit
 
 
-const val RC_SIGN_IN = 123
+//const val RC_SIGN_IN = 123
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    lateinit var mAuth: FirebaseAuth
     private var mIsShowPass = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mAuth = FirebaseAuth.getInstance()
         auth = FirebaseAuth.getInstance()
-        auth.setLanguageCode("fr")
-// To apply the default app language instead of explicitly setting it.
-// auth.useAppLanguage()
 
-        // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-
-        // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        val gso =
+        SignIn.setOnClickListener {
+            tv_username.visibility = View.VISIBLE
+            tv_password.visibility = View.VISIBLE
+            visibility.visibility = View.VISIBLE
+            btn_log_in.visibility = View.VISIBLE
+            frgtPass.visibility = View.VISIBLE
+            SignIn.visibility = View.INVISIBLE
+            phone_verify.visibility = View.INVISIBLE
+            sign_in_button.visibility = View.INVISIBLE
+        }
+      /* * val gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build()
-        // Build a GoogleSignInClient with the options specified by gso.
-        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-
-
-
-
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)*/
 
         sign_in_button.visibility = View.VISIBLE
         //tv_name.visibility = View.GONE
-        sign_in_button.setSize(SignInButton.SIZE_STANDARD)
-        sign_in_button.setOnClickListener {
+        //*sign_in_button.setSize(SignInButton.SIZE_STANDARD)
+
+    /*  *    sign_in_button.setOnClickListener {
             val signInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
+        }*/
 
         visibility.setOnClickListener{
             mIsShowPass = !mIsShowPass
             showPassword(mIsShowPass)
         }
         showPassword(mIsShowPass)
-        phone_verify.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Sign in using phone number")
-            val view = layoutInflater.inflate(R.layout.dialog_phone_verification, null)
-            val phoneNo = view.findViewById<EditText>(R.id.ph)
-            builder.setView(view)
-            builder.setPositiveButton("Submit", DialogInterface.OnClickListener { _,  _ ->
-               verify(phoneNo)
-            })
-            builder.setNegativeButton("Close", DialogInterface.OnClickListener { _,  _ ->  })
-            builder.show()
-        }
+
+       /* phone_verify.setOnClickListener {
+            if (mAuth.currentUser == null) {
+                startActivity(Intent(this, OtpActivity::class.java))
+            }else {
+                Toast.makeText(this, "Already Signed in :)", Toast.LENGTH_LONG).show()
+            }
+        }*/
+
         frgtPass.setOnClickListener{
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Forgot Password")
@@ -101,20 +95,15 @@ class MainActivity : AppCompatActivity() {
         btn_log_in.setOnClickListener() {
             doLogin();
         }
-        val acct = GoogleSignIn.getLastSignedInAccount(this)
+     //   val acct = GoogleSignIn.getLastSignedInAccount(applicationContext)
 
-       /* if (acct != null) {
-            sign_in_button.visibility = View.GONE
-            //tv_name.text = acct.displayName
-            //tv_name.visibility = View.VISIBLE
-        }*/
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+   /* *override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -132,87 +121,25 @@ class MainActivity : AppCompatActivity() {
             sign_in_button.visibility = View.GONE
             if (account != null) {
                // tv_name.text = account.displayName
+         //       FirebaseGoogleAuth(account)
                 startActivity(Intent(this,DashBoardActivity::class.java))
                 finish()
+
             }
            // tv_name.visibility = View.VISIBLE
         } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+
             sign_in_button.visibility = View.VISIBLE
-           // tv_name.text = ""
-            //tv_name.visibility = View.GONE
+       //     FirebaseGoogleAuth(null)
         }
-    }
-    private fun verify(phoneNo:EditText){
-        if (phoneNo.text.toString().isEmpty()) {
-            return
-        }else{
-/*
-            callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    }*/
+   /* private fun FirebaseGoogleAuth(account: GoogleSignInAccount){
+        val authCredential = GoogleAuthProvider.getCredential(account.idToken(),null)
+        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, OnCompleteListener<AuthResult>() {
 
-                override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                    // This callback will be invoked in two situations:
-                    // 1 - Instant verification. In some cases the phone number can be instantly
-                    //     verified without needing to send or enter a verification code.
-                    // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                    //     detect the incoming verification SMS and perform verification without
-                    //     user action.
-                    Log.d(TAG, "onVerificationCompleted:$credential")
+        })
+    }*/
 
-                    signInWithPhoneAuthCredential(credential)
-                }
-
-                override fun onVerificationFailed(e: FirebaseException) {
-                    // This callback is invoked in an invalid request for verification is made,
-                    // for instance if the the phone number format is not valid.
-                    Log.w(TAG, "onVerificationFailed", e)
-
-                    if (e is FirebaseAuthInvalidCredentialsException) {
-                        // Invalid request
-                        // ...
-                    } else if (e is FirebaseTooManyRequestsException) {
-                        // The SMS quota for the project has been exceeded
-                        // ...
-                    }
-
-                    // Show a message and update the UI
-                    // ...
-                }
-
-                override fun onCodeSent(
-                    verificationId: String,
-                    token: PhoneAuthProvider.ForceResendingToken
-                ) {
-                    // The SMS verification code has been sent to the provided phone number, we
-                    // now need to ask the user to enter the code and then construct a credential
-                    // by combining the code with a verification ID.
-                    Log.d(TAG, "onCodeSent:$verificationId")
-
-                    // Save verification ID and resending token so we can use them later
-                    storedVerificationId = verificationId
-                    resendToken = token
-
-                    // ...
-                }
-            }
-
-
-
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNo, // Phone number to verify
-                60, // Timeout duration
-                TimeUnit.SECONDS, // Unit of timeout
-                this, // Activity (for callback binding)
-                callbacks) // OnVerificationStateChangedCallbacks*/
-        }
-        /* auth.sendPasswordResetEmail(username.text.toString())
-             .addOnCompleteListener { task ->
-                 if (task.isSuccessful) {
-                     Toast.makeText(this,"Email sent.",Toast.LENGTH_SHORT).show()
-                 }
-             }*/
-    }
     private fun forgotPass(username:EditText){
         if (username.text.toString().isEmpty()) {
             return
@@ -250,8 +177,6 @@ class MainActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
-                   // Toast.makeText(baseContext, "Login failed.",
-                     //   Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
@@ -277,38 +202,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun showPassword(isShow: Boolean) {
-
         if (isShow) {
-
             // To show the password
-
             tv_password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-
             visibility.setImageResource(R.drawable.visiblility_on)
-
         } else {
-
             // To hide the password
-
             tv_password.transformationMethod = PasswordTransformationMethod.getInstance()
-
             visibility.setImageResource(R.drawable.visiblility_off)
-
         }
-
-        // To put the pointer at the end of the password string
-
         tv_password.setSelection(tv_password.text.toString().length)
-
     }
-
-
 }
 
-private fun PhoneAuthProvider.verifyPhoneNumber(phoneNo: EditText, i: Int, seconds: TimeUnit, mainActivity: MainActivity, callbacks: (command: Runnable) -> Unit) {
 
-}
-
-private fun PhoneAuthProvider.verifyPhoneNumber(phoneNo: EditText, i: Int, seconds: Long, mainActivity: MainActivity, callbacks: (command: Runnable) -> Unit) {
-
-}

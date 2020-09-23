@@ -28,7 +28,8 @@
             android:textColor="#000000"
             android:layout_height="wrap_content"
             android:hint="email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:visibility="gone"/>
 <LinearLayout
     android:layout_width="310dp"
     android:layout_height="wrap_content"
@@ -39,17 +40,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:visibility="gone"/>
     <ImageButton
         android:id="@+id/visibility"
         android:layout_weight=".15"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:src="@drawable/visiblility_off"
+        android:visibility="gone"
         />
     </LinearLayout>
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_log_in"
+            android:visibility="gone"
             android:layout_width="150dp"
             android:layout_height="50dp"
             app:cardCornerRadius="25dp"
@@ -78,13 +82,61 @@
             android:layout_height="wrap_content"
             android:text="Forgot Password?"
             android:textColor="#008000"
-            android:padding="30dp"
-            android:id="@+id/frgtPass"/>
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:id="@+id/frgtPass"
+            android:visibility="gone"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="25dp"
+            android:background="#ffffff"
+            android:id="@+id/SignIn">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <TextView
+                    android:text="Sign in using email"
+                    android:textSize="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#000000"
+                    />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+        android:id="@+id/phone_verify"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="20dp"
+        android:clickable="true"
+        android:layout_marginLeft="30dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:cardBackgroundColor="#e20147"
+        android:textAllCaps="false">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verify using Phone"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"
+            /></androidx.cardview.widget.CardView>
+
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
     <LinearLayout

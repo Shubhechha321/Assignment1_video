@@ -60,15 +60,7 @@
         android:src="@drawable/visiblility_off"
         />
     </LinearLayout>
-        <EditText
-            android:layout_marginTop="5dp"
-            android:layout_width="310dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            android:id="@+id/phone"
-            />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_sign_u"
             android:layout_width="150dp"

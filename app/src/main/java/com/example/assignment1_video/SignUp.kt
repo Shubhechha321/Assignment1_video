@@ -1,4 +1,4 @@
-package com.example.assignment2_video
+package com.example.assignment1_video
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
-import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUp : AppCompatActivity() {
@@ -44,23 +42,11 @@ class SignUp : AppCompatActivity() {
 
     private fun signUpUser() {
 
-        if (tv_usernam.text.toString().isEmpty()) {
+        if (tv_username2.text.toString().isEmpty()) {
 
-            tv_usernam.error = "Please enter email"
+            tv_username2.error = "Please enter email"
 
-            tv_usernam.requestFocus()
-
-            return
-
-        }
-
-
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(tv_usernam.text.toString()).matches()) {
-
-            tv_usernam.error = "Please enter valid email"
-
-            tv_usernam.requestFocus()
+            tv_username2.requestFocus()
 
             return
 
@@ -68,26 +54,37 @@ class SignUp : AppCompatActivity() {
 
 
 
-        if (tv_passwor.text.toString().isEmpty()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(tv_username2.text.toString()).matches()) {
 
-            tv_passwor.error = "Please enter password"
+            tv_username2.error = "Please enter valid email"
 
-            tv_passwor.requestFocus()
-
-            return
-
-        }
-        if (tv_passwor.length()<6) {
-
-            tv_passwor.error = "Password must be at least 6 characters!"
+            tv_username2.requestFocus()
 
             return
 
         }
 
-        progressBar.visibility = View.VISIBLE
 
-        auth.createUserWithEmailAndPassword(tv_usernam.text.toString(), tv_passwor.text.toString())
+
+        if (tv_password2.text.toString().isEmpty()) {
+
+            tv_password2.error = "Please enter password"
+
+            tv_password2.requestFocus()
+
+            return
+
+        }
+        if (tv_password2.length()<6) {
+
+            tv_password2.error = "Password must be at least 6 characters!"
+
+            return
+
+        }
+
+
+        auth.createUserWithEmailAndPassword(tv_username2.text.toString(), tv_password2.text.toString())
 
             .addOnCompleteListener(this) { task ->
 
@@ -119,7 +116,7 @@ class SignUp : AppCompatActivity() {
 
             // To show the password
 
-            tv_passwor.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            tv_password2.transformationMethod = HideReturnsTransformationMethod.getInstance()
 
             visible.setImageResource(R.drawable.visiblility_on)
 
@@ -127,7 +124,7 @@ class SignUp : AppCompatActivity() {
 
             // To hide the password
 
-            tv_passwor.transformationMethod = PasswordTransformationMethod.getInstance()
+            tv_password2.transformationMethod = PasswordTransformationMethod.getInstance()
 
             visible.setImageResource(R.drawable.visiblility_off)
 
@@ -135,7 +132,7 @@ class SignUp : AppCompatActivity() {
 
         // To put the pointer at the end of the password string
 
-        tv_passwor.setSelection(tv_passwor.text.toString().length)
+        tv_password2.setSelection(tv_password2.text.toString().length)
 
     }
 

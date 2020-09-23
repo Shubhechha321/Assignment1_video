@@ -14,6 +14,11 @@
             android:textSize="30dp"
             android:paddingLeft="30dp"
             android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_name"
+        />
     <EditText
         android:layout_marginTop="30dp"
         android:layout_width="310dp"
@@ -74,4 +79,5 @@
         android:textColor="#008000"
         android:layout_gravity="center"
         android:id="@+id/btn_log_out"/>
+
 </LinearLayout>
