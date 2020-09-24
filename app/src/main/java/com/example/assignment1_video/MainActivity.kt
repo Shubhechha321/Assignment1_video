@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -18,6 +19,7 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -46,21 +48,21 @@ class MainActivity : AppCompatActivity() {
             phone_verify.visibility = View.INVISIBLE
             sign_in_button.visibility = View.INVISIBLE
         }
-      /* * val gso =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
+        /* * val gso =
+              GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                  .requestEmail()
+                  .build()
 
-        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)*/
+          val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)*/
 
         sign_in_button.visibility = View.VISIBLE
         //tv_name.visibility = View.GONE
         //*sign_in_button.setSize(SignInButton.SIZE_STANDARD)
 
-    /*  *    sign_in_button.setOnClickListener {
-            val signInIntent = mGoogleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }*/
+        /*  *    sign_in_button.setOnClickListener {
+                val signInIntent = mGoogleSignInClient.signInIntent
+                startActivityForResult(signInIntent, RC_SIGN_IN)
+            }*/
 
         visibility.setOnClickListener{
             mIsShowPass = !mIsShowPass
@@ -68,13 +70,14 @@ class MainActivity : AppCompatActivity() {
         }
         showPassword(mIsShowPass)
 
-       /* phone_verify.setOnClickListener {
+        phone_verify.setOnClickListener {
             if (mAuth.currentUser == null) {
-                startActivity(Intent(this, OtpActivity::class.java))
+                Toast.makeText(this, "Not registered :)", Toast.LENGTH_LONG).show()
             }else {
-                Toast.makeText(this, "Already Signed in :)", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, DashBoardActivity::class.java))
+                finish()
             }
-        }*/
+        }
 
         frgtPass.setOnClickListener{
             val builder = AlertDialog.Builder(this)
@@ -95,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         btn_log_in.setOnClickListener() {
             doLogin();
         }
-     //   val acct = GoogleSignIn.getLastSignedInAccount(applicationContext)
+        //   val acct = GoogleSignIn.getLastSignedInAccount(applicationContext)
 
     }
 
@@ -103,42 +106,42 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-   /* *override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    /* *override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            val task =
-                GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        }
-    }
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            sign_in_button.visibility = View.GONE
-            if (account != null) {
-               // tv_name.text = account.displayName
-         //       FirebaseGoogleAuth(account)
-                startActivity(Intent(this,DashBoardActivity::class.java))
-                finish()
+         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+         if (requestCode == RC_SIGN_IN) {
+             // The Task returned from this call is always completed, no need to attach
+             // a listener.
+             val task =
+                 GoogleSignIn.getSignedInAccountFromIntent(data)
+             handleSignInResult(task)
+         }
+     }
+     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+         try {
+             val account = completedTask.getResult(ApiException::class.java)
+             sign_in_button.visibility = View.GONE
+             if (account != null) {
+                // tv_name.text = account.displayName
+          //       FirebaseGoogleAuth(account)
+                 startActivity(Intent(this,DashBoardActivity::class.java))
+                 finish()
 
-            }
-           // tv_name.visibility = View.VISIBLE
-        } catch (e: ApiException) {
+             }
+            // tv_name.visibility = View.VISIBLE
+         } catch (e: ApiException) {
 
-            sign_in_button.visibility = View.VISIBLE
-       //     FirebaseGoogleAuth(null)
-        }
-    }*/
-   /* private fun FirebaseGoogleAuth(account: GoogleSignInAccount){
-        val authCredential = GoogleAuthProvider.getCredential(account.idToken(),null)
-        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, OnCompleteListener<AuthResult>() {
+             sign_in_button.visibility = View.VISIBLE
+        //     FirebaseGoogleAuth(null)
+         }
+     }*/
+    /* private fun FirebaseGoogleAuth(account: GoogleSignInAccount){
+         val authCredential = GoogleAuthProvider.getCredential(account.idToken(),null)
+         mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, OnCompleteListener<AuthResult>() {
 
-        })
-    }*/
+         })
+     }*/
 
     private fun forgotPass(username:EditText){
         if (username.text.toString().isEmpty()) {
@@ -214,5 +217,7 @@ class MainActivity : AppCompatActivity() {
         tv_password.setSelection(tv_password.text.toString().length)
     }
 }
+
+
 
 

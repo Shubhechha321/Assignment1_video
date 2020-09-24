@@ -31,8 +31,9 @@ class StartActivity : AppCompatActivity() {
             if (auth.currentUser == null) {
                 startActivity(Intent(this, OtpActivity::class.java))
             }else {
-                startActivity(Intent(this, DashBoardActivity::class.java))
-                finish()
+                Toast.makeText(this, "Already Registered :)", Toast.LENGTH_LONG).show()
+                //startActivity(Intent(this, DashBoardActivity::class.java))
+                //finish()
             }
         }
 
@@ -97,8 +98,10 @@ class StartActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         val account = GoogleSignIn.getLastSignedInAccount(this)
+        val ph = FirebaseAuth.getInstance()
         updateUI1(currentUser)
         updateUI2(account)
+        updateUI3(ph)
     }
     private fun updateUI1(currentUser: FirebaseUser?) {
         if (currentUser!=null){
@@ -116,6 +119,12 @@ class StartActivity : AppCompatActivity() {
     }
     private fun updateUI2(currentUser: GoogleSignInAccount?){
         if (currentUser!=null){
+            startActivity(Intent(this,DashBoardActivity::class.java))
+            finish()
+        }
+    }
+    private fun updateUI3(ph : FirebaseAuth){
+        if (ph.currentUser!=null){
             startActivity(Intent(this,DashBoardActivity::class.java))
             finish()
         }
