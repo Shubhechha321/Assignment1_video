@@ -85,7 +85,6 @@ class StartActivity : AppCompatActivity() {
                 //       FirebaseGoogleAuth(account)
                 startActivity(Intent(this,DashBoardActivity::class.java))
                 finish()
-
             }
             // tv_name.visibility = View.VISIBLE
         } catch (e: ApiException) {

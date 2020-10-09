@@ -3,9 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.example.assignment2_video"
@@ -15,6 +20,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -39,10 +46,26 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.4'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "androidx.cardview:cardview:1.0.0"
 
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    implementation('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation('com.google.apis:google-api-services-youtube:v3-rev183-1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }

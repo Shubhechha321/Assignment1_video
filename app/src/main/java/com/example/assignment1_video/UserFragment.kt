@@ -16,6 +16,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_dash_board.*
 import kotlinx.android.synthetic.main.fragment_user.*
+import kotlinx.android.synthetic.main.fragment_user.view.*
 
 
 class UserFragment : Fragment() {
@@ -26,38 +27,34 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false)
+        val view=inflater.inflate(R.layout.fragment_user,container,false)
+        auth = FirebaseAuth.getInstance()
+        view.tv_name.visibility = View.GONE
+        val acct = GoogleSignIn.getLastSignedInAccount(this.context)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        //val m = GoogleApiClient.Builder(this.activity).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build()
+        val m = GoogleApiClient.Builder(this.requireContext()).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build()
+        m.connect()
+        if (acct != null) {
+            //sign_in_button.visibility = View.GONE
+            view.tv_name.text = acct.displayName
+            view.tv_name.visibility = View.VISIBLE
+        }
+        view.btn_change_pass.setOnClickListener {
+            changePass()
+        }
+        view.btn_log_out.setOnClickListener(){
+            auth.signOut()
+            Auth.GoogleSignInApi.signOut(m)
+            val intent = Intent(this.context, StartActivity::class.java)
+            startActivity(intent)
+            //finish()
+        }
+        return view
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            auth = FirebaseAuth.getInstance()
-
-            tv_name.visibility = View.GONE
-            val acct = GoogleSignIn.getLastSignedInAccount(this.context)
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
-
-            //val m = GoogleApiClient.Builder(this.activity).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build()
-            val m = GoogleApiClient.Builder(this.requireContext()).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build()
-            m.connect()
-
-            if (acct != null) {
-                //sign_in_button.visibility = View.GONE
-                tv_name.text = acct.displayName
-                tv_name.visibility = View.VISIBLE
-            }
-            btn_change_pass.setOnClickListener {
-                changePass()
-            }
-            btn_log_out.setOnClickListener(){
-
-                auth.signOut()
-                Auth.GoogleSignInApi.signOut(m)
-                val intent = Intent(this.context, StartActivity::class.java)
-                startActivity(intent)
-                //finish()
-            }
 
         }
 

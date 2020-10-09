@@ -1,24 +1,18 @@
 package com.example.assignment1_video
 
-import android.content.Intent
+import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
-import com.google.android.gms.common.api.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_dash_board.*
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
+import com.google.api.services.youtube.YouTubeScopes
+import pub.devrel.easypermissions.EasyPermissions
 
-@Suppress("DEPRECATION")
-class DashBoardActivity : AppCompatActivity() {
+
+class DashBoardActivity : AppCompatActivity(){
 
     lateinit var homeFragment: HomeFragment
 
@@ -28,11 +22,12 @@ class DashBoardActivity : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dash_board)
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.bottomnav)
 
@@ -115,5 +110,7 @@ class DashBoardActivity : AppCompatActivity() {
         }
 
     }
+
+
 }
 

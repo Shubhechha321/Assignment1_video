@@ -1,60 +1,99 @@
 package com.example.assignment1_video
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.assignment1_video.R
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.assignment1_video.Models.ModelHome
+import com.example.assignment1_video.Models.VideoYT
+import com.example.assignment1_video.Retrofit.ApiClient
+import com.example.assignment1_video.Retrofit.ApiInterface
+import com.example.assignment1_video.Retrofit.Main
+import com.example.assignment1_video.network.YoutubeAPI
+import kotlinx.android.synthetic.main.fragment_search.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    var rcy = view?.findViewById<RecyclerView>(R.id.recycler_view)
+    private var videoList: MutableList<VideoYT> = ArrayList()
+    //var mAdapter = context?.let { AdapterHome(it, videoList) }
+    lateinit var mAdapter: AdapterHome
+  // private var videoList :List<VideoYT>= ArrayList()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+      inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
-    }
+        //return inflater.inflate(R.layout.fragment_search, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_search, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+       // val exampleList = generateDummyList()
+        var rcy = view.findViewById<RecyclerView>(R.id.recycler_view)
+
+      //manager = LinearLayoutManager(context)
+      var manager = LinearLayoutManager (context)
+     // rcy.adapter = this.context?.let { AdapterHome(it, videoList) }
+        //rcy.layoutManager = LinearLayoutManager(context)
+        //mAdapter = context?.let { AdapterHome(it, videoList) }
+      mAdapter = AdapterHome(context!!,videoList)
+      rcy.setAdapter(mAdapter)
+      rcy.layoutManager = manager
+       // rcy.setHasFixedSize(true)
+
+        var sch: ImageButton
+        sch = view.findViewById(R.id.btn_search)
+        sch.setOnClickListener {
+            if (!TextUtils.isEmpty(et_search.text.toString())){
+                videoList.clear()
+                getJson(et_search.text.toString().trim())
+            } else {
+                Toast.makeText(context, "You need to enter some text", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return view
+    }
+    private fun getJson(query: String){
+       /* val url: String =
+            (YoutubeAPI.BASE_URL + YoutubeAPI.sch + YoutubeAPI.KEY + YoutubeAPI.chid + YoutubeAPI.mx + YoutubeAPI.ord
+                    + YoutubeAPI.part + YoutubeAPI.query + query + YoutubeAPI.type)*/
+        val url: String =
+            (YoutubeAPI.BASE_URL + YoutubeAPI.sch + YoutubeAPI.KEY +  YoutubeAPI.mx + YoutubeAPI.ord
+                    + YoutubeAPI.part + YoutubeAPI.query + query + YoutubeAPI.type)
+        val data: Call<ModelHome?>? = YoutubeAPI.video?.getHomeVideo(url)
+        data!!.enqueue(object : Callback<ModelHome?> {
+            override fun onResponse(call: Call<ModelHome?>, response: Response<ModelHome?>) {
+                if (response.errorBody() != null) {
+                    Log.w(TAG, "onResponse search : " + response.errorBody().toString())
+                } else {
+                    val mh = response.body()
+                    if (mh!!.items!!.size != 0) {
+                        mh.items?.let { videoList.addAll(it) }
+                        mAdapter?.notifyDataSetChanged()
+                        //adapter.notifyDataSetChanged()
+                        //AdapterHome.YoutubeHolder
+
+                    } else {
+                        Toast.makeText(context, "No video", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
+            override fun onFailure(call: Call<ModelHome?>, t: Throwable) {
+                Log.e(TAG, "onFailure search: ", t)
+            }
+        })
     }
 }
