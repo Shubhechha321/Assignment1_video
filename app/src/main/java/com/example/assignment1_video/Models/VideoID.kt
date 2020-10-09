@@ -10,6 +10,6 @@ import com.google.gson.annotations.SerializedName
 class VideoID {
     @SerializedName("videoId")
     @Expose
-    private var videoId: String? = null
+     var videoId: String? = null
 
 }

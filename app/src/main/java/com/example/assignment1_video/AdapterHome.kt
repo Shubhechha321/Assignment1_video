@@ -2,7 +2,6 @@ package com.example.assignment1_video
 
 //import com.example.assignment1_video.Constant.DEVELOPER_K
 
-import android.R.attr
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment1_video.Models.VideoYT
 import com.squareup.picasso.Callback
@@ -32,14 +32,14 @@ class AdapterHome(val context: Context, val videoList: List<VideoYT>):RecyclerVi
 //startActivity(Intent(con))
            /* val intent = Intent(context, PlayerFragment::class.java)
             context.startActivity(intent)*/
-
+//var v = data.id
             itemView.setOnClickListener {
 
-                val i = Intent(context, HomeFragment::class.java)
-               // i.putExtra("video_id", data.id)
-               // i.putExtra("video_title", title)
-
+                val i = Intent(context, GetStarted::class.java)
+                i.putExtra("video_id",data.id?.videoId)
+                i.putExtra("video",getTitle)
                 context.startActivity(i)
+                //startActivity(i)
             }
 
 
