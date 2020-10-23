@@ -1,6 +1,6 @@
 package com.example.assignment1_video
 
-import android.app.ProgressDialog
+//import android.app.ProgressDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -35,13 +35,13 @@ class DashBoardActivity : AppCompatActivity(){
 
 
 
-        homeFragment = HomeFragment()
+        searchFragment = SearchFragment()
 
         supportFragmentManager
 
             .beginTransaction()
 
-            .replace(R.id.frame, homeFragment)
+            .replace(R.id.frame, searchFragment)
 
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
 

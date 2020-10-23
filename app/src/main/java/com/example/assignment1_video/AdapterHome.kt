@@ -5,13 +5,13 @@ package com.example.assignment1_video
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment1_video.Models.VideoYT
 import com.squareup.picasso.Callback
@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso
 
 
 class AdapterHome(val context: Context, val videoList: List<VideoYT>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+   // var fragmentB: HomeFragment = HomeFragment()
     inner class YoutubeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var thumbnail:ImageView = itemView.findViewById(R.id.video_thumbnail_image_view)
         var title:TextView = itemView.findViewById(R.id.video_title_label)
@@ -36,10 +36,19 @@ class AdapterHome(val context: Context, val videoList: List<VideoYT>):RecyclerVi
             itemView.setOnClickListener {
 
                 val i = Intent(context, GetStarted::class.java)
-                i.putExtra("video_id",data.id?.videoId)
-                i.putExtra("video",getTitle)
+                //val i = Intent(context, )
+                i.putExtra("video_id", data.id?.videoId)
+                i.putExtra("video", getTitle)
                 context.startActivity(i)
                 //startActivity(i)
+
+
+      /*          var bundle = Bundle();
+                //bundle.putI("String", "String text");
+                bundle.putString("video_id", data.id?.videoId);
+                //bundle.putString("video", getTitle);
+                //bundle.putBoolean("Boolean", Boolean value);
+                HomeFragment().arguments = bundle;*/
             }
 
 
@@ -76,7 +85,7 @@ class AdapterHome(val context: Context, val videoList: List<VideoYT>):RecyclerVi
               if (videoYT != null) {
             yth.setData(videoYT)
         }*/
-        val videoYT = videoList!![position]
+        val videoYT = videoList[position]
         val yth = holder as YoutubeHolder
         yth.setData(videoYT)
       /*  holder.itemView.setOnClickListener {

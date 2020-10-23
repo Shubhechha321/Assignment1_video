@@ -9,6 +9,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 
+//class GetStarted : YouTubeBaseActivity() {}
 
 class GetStarted : YouTubeBaseActivity() {
     private var ytPlayer: YouTubePlayerView? = null
@@ -18,8 +19,8 @@ class GetStarted : YouTubeBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get_started)
-        ytPlayer = findViewById(R.id.yt);
-        videoId = intent.getStringExtra("video_id").toString();
+        ytPlayer = findViewById(R.id.yt)
+        videoId = intent.getStringExtra("video_id").toString()
         initializePlayer()
 
     }
@@ -46,3 +47,4 @@ class GetStarted : YouTubeBaseActivity() {
 
     }
 }
+ //*/
