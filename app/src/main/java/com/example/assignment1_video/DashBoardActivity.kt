@@ -2,17 +2,13 @@ package com.example.assignment1_video
 
 //import android.app.ProgressDialog
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import com.google.api.services.youtube.YouTubeScopes
-import pub.devrel.easypermissions.EasyPermissions
+import kotlinx.android.synthetic.main.activity_dash_board.*
 
 
-class DashBoardActivity : AppCompatActivity(){
+class DashBoardActivity : AppCompatActivity(), Communicator{
 
     lateinit var homeFragment: HomeFragment
 
@@ -31,8 +27,9 @@ class DashBoardActivity : AppCompatActivity(){
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.bottomnav)
 
-
-
+/*
+val fragmentA= SearchFragment()
+        supportFragmentManager.beginTransaction()*/
 
 
         searchFragment = SearchFragment()
@@ -53,21 +50,7 @@ class DashBoardActivity : AppCompatActivity(){
 
             when (item.itemId) {
 
-                R.id.home ->{
 
-                    homeFragment = HomeFragment()
-
-                    supportFragmentManager
-
-                        .beginTransaction()
-
-                        .replace(R.id.frame, homeFragment)
-
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-
-                        .commit()
-
-                }
 
                 R.id.search ->{
 
@@ -83,8 +66,34 @@ class DashBoardActivity : AppCompatActivity(){
 
                         .commit()
 
-                }
+                }/*
+                R.id.home ->{
 
+                    homeFragment = HomeFragment()
+
+                    supportFragmentManager
+
+                        .beginTransaction()
+
+                        .replace(R.id.frame, homeFragment)
+
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+
+                        .commit()
+
+                }*/
+                R.id.home->{
+                    homeFragment= HomeFragment()
+                    supportFragmentManager
+
+                        .beginTransaction()
+
+                        .replace(R.id.frame, homeFragment)
+
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+
+                        .commit()
+                }
                 R.id.profile ->{
 
                     userFragment = UserFragment()
@@ -109,6 +118,23 @@ class DashBoardActivity : AppCompatActivity(){
 
         }
 
+    }
+
+    override fun passData(video_id: String, video_title:String) {
+        val bundle = Bundle()
+        bundle.putString("video_id", video_id)
+        bundle.putString("v_title", title as String?)
+        val transaction=this.supportFragmentManager.beginTransaction()
+        val fragmentB= HomeFragment()
+        fragmentB.arguments=bundle
+        transaction.replace(R.id.frame, fragmentB)
+
+        bottomnav.setSelectedItemId(R.id.home)
+        transaction.commit()
+
+
+        //change color of bottom navigation i
+       // bottomnav.setSelectedItemId(R.id.home)
     }
 
 

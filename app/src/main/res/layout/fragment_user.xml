@@ -7,13 +7,18 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome!"
         android:textSize="30dp"
         android:paddingLeft="30dp"
         android:textStyle="bold" />
+
+    <include
+        layout="@layout/layout_toolbar_profile"
+        android:layout_width="match_parent"
+        android:layout_height="327dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

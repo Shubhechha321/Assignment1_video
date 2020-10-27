@@ -4,13 +4,25 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment1_video.network.YoutubeAPI
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 
-//class GetStarted : YouTubeBaseActivity() {}
+class GetStarted : YouTubeBaseActivity() {
+   /* private fun initializePlayer() {
+        simpleExoplayer = SimpleExoPlayer.Builder(this).build()
 
+        val randomUrl = urlList.random()
+        preparePlayer(randomUrl.first, randomUrl.second)
+        exoplayerView.player = simpleExoplayer
+        simpleExoplayer.seekTo(playbackPosition)
+        simpleExoplayer.playWhenReady = true
+        simpleExoplayer.addListener(this)
+    }*/
+}
+/*
 class GetStarted : YouTubeBaseActivity() {
     private var ytPlayer: YouTubePlayerView? = null
     private lateinit var videoId: String
@@ -47,4 +59,4 @@ class GetStarted : YouTubeBaseActivity() {
 
     }
 }
- //*/
+ */
